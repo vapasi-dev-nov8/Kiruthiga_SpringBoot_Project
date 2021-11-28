@@ -34,6 +34,18 @@ public class MovieEntity {
         return new MovieDto(this.Id, this.movieName, this.actorName, this.directorName);
     }
 
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public void setActorName(String actorName) {
+        this.actorName = actorName;
+    }
+
+    public void setDirectorName(String directorName) {
+        this.directorName = directorName;
+    }
+
     public Integer getId() {
         return Id;
     }

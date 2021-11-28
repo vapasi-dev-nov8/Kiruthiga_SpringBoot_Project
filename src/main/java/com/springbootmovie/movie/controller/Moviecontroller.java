@@ -45,6 +45,31 @@ import java.util.Optional;
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/actor")
+    public ResponseEntity<MovieDto> getMovieByActor(@RequestParam(name = "actorName") String actorName) {
+        Optional<MovieDto> movie = movieService.getByActorName(actorName);
+        if (movie.isPresent())
+            return ResponseEntity.ok().body(movie.get());
+        return ResponseEntity.notFound().build();
     }
+
+    @GetMapping(value="/actors/actorName")
+    public ResponseEntity<List<MovieDto>> getMovieByActors(@RequestParam(name = "actorsName") List<String> actorsName) {
+        List<MovieDto> movie = movieService.getMovieByActorsName(actorsName);
+        return ResponseEntity.ok().body(movie);
+    }
+    @PutMapping(value="/{id}")
+    public ResponseEntity<MovieDto> updateMovieByID(@PathVariable("id") Integer id,
+                                          @RequestBody MovieDto movieUpdateDto){
+            MovieDto updateMovieDto = movieService.updateMovieDataByID(id,movieUpdateDto);
+            if(!(updateMovieDto == null))
+                return ResponseEntity.ok().body(updateMovieDto);
+               return ResponseEntity.notFound().build();
+    }
+
+    }
+
+
 
 
