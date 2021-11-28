@@ -26,36 +26,36 @@ public class MovieService {
         List<MovieDto> movieDtoList = new ArrayList<>();
 
         for (MovieEntity movieEntity : movieRepository.findAll()) {
-            movieDtoList.add(MovieDto.dtoFrom(movieEntity));
+            movieDtoList.add(MovieDto.entityToDto(movieEntity));
         }
         return movieDtoList;
     }
 
     public MovieDto saveMovie(MovieDto movieDto) {
-        MovieEntity movieEntity = MovieEntity.entityFrom(movieDto);
+        MovieEntity movieEntity = MovieEntity.dtoToEntity(movieDto);
         MovieEntity savedMovieEntity = movieRepository.save(movieEntity);
-        return MovieDto.dtoFrom(savedMovieEntity);
+        return MovieDto.entityToDto(savedMovieEntity);
     }
 
     public Optional<MovieDto> getMovie(Integer id) {
         Optional<MovieEntity> movieEntity = movieRepository.findById(id);
-        return movieEntity.map(MovieDto::dtoFrom);
+        return movieEntity.map(MovieDto::entityToDto);
     }
     public Optional<MovieDto> getByActorName(String actorName) {
         Optional<MovieEntity> movieEntity = movieRepository.findByActorName(actorName);
-        return movieEntity.map(MovieDto::dtoFrom);
+        return movieEntity.map(MovieDto::entityToDto);
     }
 
     public List<MovieDto> getMovieByActorsName(List<String> actorsName) {
         List<MovieDto> moviesOfActors = new ArrayList<>();
         Iterable<MovieEntity> movieEntities = movieRepository.findAllByActorNameIn(actorsName);
         for(MovieEntity movieEntity : movieEntities)
-            moviesOfActors.add(MovieDto.dtoFrom(movieEntity));
+            moviesOfActors.add(MovieDto.entityToDto(movieEntity));
         return moviesOfActors;
     }
 
     public MovieDto updateMovieDataByID(Integer id,MovieDto movie) {
-        MovieEntity movieInUpdateRequest = MovieEntity.entityFrom(movie);
+        MovieEntity movieInUpdateRequest = MovieEntity.dtoToEntity(movie);
         Optional<MovieEntity> updateMovieEntity = movieRepository.findById(id);
         if(updateMovieEntity.isPresent()){
             MovieEntity movieEntity = updateMovieEntity.get();
@@ -63,7 +63,7 @@ public class MovieService {
             movieEntity.setActorName(movieInUpdateRequest.getActorName());
             movieEntity.setDirectorName(movieInUpdateRequest.getDirectorName());
             movieRepository.save(movieEntity);
-            MovieDto updatedMovieID = MovieDto.dtoFrom(movieEntity);
+            MovieDto updatedMovieID = MovieDto.entityToDto(movieEntity);
             return updatedMovieID;
         }
         return null;

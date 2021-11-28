@@ -15,12 +15,12 @@ import java.util.Optional;
 
 @RestController
     @RequestMapping("/api/v1/movies")
-    public class Moviecontroller {
+    public class MovieController {
 
         MovieService movieService;
 
         @Autowired
-        public Moviecontroller(MovieService movieService) {
+        public MovieController(MovieService movieService) {
             this.movieService = movieService;
         }
 

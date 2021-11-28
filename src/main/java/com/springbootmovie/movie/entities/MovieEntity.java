@@ -26,7 +26,7 @@ public class MovieEntity {
         this.directorName = directorName;
     }
 
-    public static MovieEntity entityFrom(MovieDto movieDto){
+    public static MovieEntity dtoToEntity(MovieDto movieDto){
         return new MovieEntity(null,movieDto.getMovieName(),movieDto.getActorName(),movieDto.getDirectorName());
     }
 
