@@ -4,7 +4,6 @@ import com.springbootmovie.movie.dto.MovieDto;
 
 import com.springbootmovie.movie.entities.MovieEntity;
 import com.springbootmovie.movie.repository.MovieRepository;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
