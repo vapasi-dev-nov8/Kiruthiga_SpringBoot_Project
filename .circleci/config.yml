@@ -5,26 +5,24 @@ workflows:
   build_and_test:
     jobs:
       - build
-          - test
-          - package:
+      - test
+      - package:
+         requires:
+            - build
+            - test
+      - deployToDev:
+          requires:
+            - package
+      - hold:
+          type: approval
           requires:
             - build
             - test
-            - deploy:
-                requires:
-                  - package
-            - prod_package:
-                requires:
-                  - build
-                  - test
-            - hold:
-                type: approval
-                requires:
-                  - prod_package
-            - prod_deploy:
-                requires:
-                  - hold
-
+            - package
+            - deployToDev
+      - deployToProd:
+          requires:
+            - hold
 jobs:
   build:
     docker:
@@ -68,7 +66,7 @@ jobs:
           paths:
             - image.txt
 
-  deploy:
+  deployToDev:
     docker:
       - image: docker:dind
     steps:
