@@ -6,23 +6,14 @@ workflows:
     jobs:
       - build
       - test
-      - package:
+      - package
          requires:
             - build
             - test
-      - deployToDev:
+      - deployToDev
           requires:
             - package
-      - hold:
-          type: approval
-          requires:
-            - build
-            - test
-            - package
-            - deployToDev
-      - deployToProd:
-          requires:
-            - hold
+
 jobs:
   build:
     docker:
