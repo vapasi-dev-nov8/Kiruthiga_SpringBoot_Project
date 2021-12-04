@@ -5,14 +5,7 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test
-      - package
-         requires:
-            - build
-            - test
-      - deployToDev
-          requires:
-            - package
+
 
 jobs:
   build:
