@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.springbootmovie'
@@ -16,11 +17,19 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'junit:junit:4.3.1'
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'com.h2database:h2'
+
 
 }
 
 test {
+	systemProperty 'spring.profiles.active', 'test'
 	useJUnitPlatform()
+	reports {
+		junitXml.enabled = true
+	}
+
 }
